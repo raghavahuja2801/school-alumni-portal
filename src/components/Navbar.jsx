@@ -60,7 +60,7 @@ const Navbar = ({ isSignedIn }) => {
     <NavbarContainer>
       <Logo src="../src/assets/bbps_logo.jpeg" alt="Logo" />
       <NavButtons>
-        <NavButton>Home</NavButton>
+        <NavButton onClick={navigate('/admin')}>Home</NavButton>
         <NavButton>About</NavButton>
         <NavButton>Circullars</NavButton>
         <NavButton onClick={handleLogout}>{isSignedIn ? 'Logout' : 'Login'}</NavButton>
