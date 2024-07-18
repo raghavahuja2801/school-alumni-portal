@@ -52,7 +52,7 @@ const Navbar = ({ isSignedIn }) => {
           // An error happened.
         });
     } else {
-      navigate("/login");
+      navigate("/");
     }
   };
 
