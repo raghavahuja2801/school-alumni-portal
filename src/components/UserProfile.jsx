@@ -207,7 +207,7 @@ function UserProfile({ user }) {
       signOut(auth)
         .then(() => {
           // Sign-out successful.
-          navigate("/login");
+          navigate("/");
           console.log("Signed out successfully");
         })
         .catch((error) => {

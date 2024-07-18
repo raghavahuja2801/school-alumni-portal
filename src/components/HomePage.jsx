@@ -32,7 +32,7 @@ const HomePage = () => {
             } else {
               // User is signed out
               // ...
-              navigate('/login')
+              navigate('/')
               console.log("user is logged out")
             }
           });
