@@ -11,7 +11,7 @@
 //                 if (user != '') {
 //                     const docRef = doc(db, 'user_data', user); // Reference to the 'user_data' collection
 //                     const docSnap = await getDoc(docRef);
-                
+
 //                 if (docSnap.exists()) {
 //                     setUser(docSnap.data());
 //                     console.log(docSnap.data())
@@ -150,20 +150,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db, auth} from '../firebase';
+import { db, auth } from '../firebase';
 import { storage } from '../firebase'; // Ensure you have the storage import set up
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
-
-
-
-
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const ProfileContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 15px auto;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -173,16 +172,31 @@ const ProfileContainer = styled.div`
 const ProfileHeader = styled.div`
   text-align: center;
   display: flex;
+  margin-right: 15px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
+  width: auto;
+  `
 
+const ProfileData = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+
+`
+
+const DataContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 const ProfileImage = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
+  margin: 5px 0 5px 0;
 `;
 
 const UploadInput = styled.input`
@@ -195,42 +209,113 @@ const UploadButton = styled.label`
   background-color: #007bff;
   color: #ffffff;
   border: none;
+  margin: 5px 0 5px 0;
   border-radius: 4px;
   cursor: pointer;
+`;
+
+const StyledButton = styled.button`
+  padding: 10px 20px;
+  background-color: #1A9D8D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #0b6ea8;
+  }
+`;
+
+const StyledInput = styled.input`
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  color: #7f7f7f;
+  background-color: #D9D9D9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 `;
 
 function UserProfile({ user }) {
   const [userData, setUserData] = useState({});
   const [profileImage, setProfileImage] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileData, setProfileData] = useState({
+    University: '',
+    Degree: '',
+    Occupation: '',
+  });
+
+  useEffect(() => {
+    if (userData) {
+      setProfileData({
+        University: userData.University || '',
+        Degree: userData.Degree || '',
+        Occupation: userData.Occupation || '',
+      });
+    }
+  }, [userData, isEditing]);
+
+  const toggleEdit = () => {
+    if (!isEditing) {
+      setProfileData({
+        University: userData.University || '',
+        Degree: userData.Degree || '',
+        Occupation: userData.Occupation || '',
+      });
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData({ ...profileData, [name]: value });
+  };
+
+  const handleSave = async () => {
+    try {
+      const mergedData = { ...userData, ...profileData };
+      console.log(mergedData);
+      await setDoc(doc(db, 'user_data', user), mergedData);
+
+      // Update the userData with the newly saved profileData
+      setUserData(mergedData);
+
+      // Exit edit mode
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
 
   const handleLogout = () => {
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-          navigate("/");
-          console.log("Signed out successfully");
-        })
-        .catch((error) => {
-          // An error happened.
-        });
+    signOut(auth)
+      .then(() => {
+        navigate("/");
+        console.log("Signed out successfully");
+      })
+      .catch((error) => {
+        console.error('Error signing out:', error);
+      });
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (user !== '') {
-          const docRef = doc(db, 'user_data', user); // Adjust 'user_data' to your Firestore collection name
+        if (user) {
+          const docRef = doc(db, 'user_data', user);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
-            console.log('logged in')
+            console.log('logged in');
             setUserData(docSnap.data());
-            console.log(docSnap.data())
-            if (docSnap.data().status == false){
-                alert("Your account is not approved yet!")
-                handleLogout()
+            console.log(docSnap.data());
+            if (docSnap.data().status === false) {
+              alert("Your account is not approved yet!");
+              handleLogout();
             }
-            // Check if profile picture exists
             if (docSnap.data().profilePicture) {
               setProfileImage(docSnap.data().profilePicture);
             }
@@ -248,24 +333,19 @@ function UserProfile({ user }) {
 
   async function handleFileChange(e) {
     const file = e.target.files[0];
-    const userId = user; // Assuming 'user' prop contains the user ID
-  
+    const userId = user;
+
     try {
       const storageRef = ref(storage, `profile_images/${userId}/${file.name}`);
       await uploadBytes(storageRef, file);
-  
       const downloadURL = await getDownloadURL(storageRef);
-  
-      const userRef = doc(db, 'user_data', userId); // Adjust to your Firestore collection
-      await setDoc(userRef, { profilePicture: downloadURL }, { merge: true });
-  
+      await setDoc(doc(db, 'user_data', userId), { profilePicture: downloadURL }, { merge: true });
       setProfileImage(downloadURL);
       console.log('Image uploaded successfully:', downloadURL);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
   }
-  
 
   return (
     <ProfileContainer>
@@ -283,14 +363,60 @@ function UserProfile({ user }) {
         />
         <UploadButton htmlFor="profilePicture">Upload Profile Picture</UploadButton>
       </ProfileHeader>
-      <div>
-        <h2>Hey {userData.Name}</h2>
-        <h2>Welcome to {userData.Branch} alumni portal</h2>
-        {/* Additional profile information can be displayed here */}
-      </div>
+      <ProfileData>
+        <h2>{userData.Name}</h2>
+        <h3>{userData.Email}</h3>
+        <h3>{userData.Number}</h3>
+        <h3>Batch of {userData.Batch}</h3>
+      </ProfileData>
+      <ProfileData>
+        <DataContainer>
+          <h3>University: </h3>
+          {isEditing ? (
+            <StyledInput
+              type="text"
+              name="University"
+              value={profileData.University}
+              onChange={handleChange}
+            />
+          ) : (
+            <h3>{userData.University}</h3>
+          )}
+        </DataContainer>
+        <DataContainer>
+          <h3>Degree: </h3>
+          {isEditing ? (
+            <StyledInput
+              type="text"
+              name="Degree"
+              value={profileData.Degree}
+              onChange={handleChange}
+            />
+          ) : (
+            <h3>{userData.Degree}</h3>
+          )}
+        </DataContainer>
+        <DataContainer>
+          <h3>Occupation: </h3>
+          {isEditing ? (
+            <StyledInput
+              type="text"
+              name="Occupation"
+              value={profileData.Occupation}
+              onChange={handleChange}
+            />
+          ) : (
+            <h3>{userData.Occupation}</h3>
+          )}
+        </DataContainer>
+        <StyledButton onClick={isEditing ? handleSave : toggleEdit}>
+          {isEditing ? 'Save' : 'Edit'}
+        </StyledButton>
+      </ProfileData>
     </ProfileContainer>
   );
 }
+
 
 export default UserProfile;
 
