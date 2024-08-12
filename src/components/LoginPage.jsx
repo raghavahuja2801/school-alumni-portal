@@ -107,6 +107,7 @@ const StyledSelect = styled(Select)`
   background-color: #f3f3f3;
   border: 1px solid #ddd;
   border-radius: 8px;
+  width: 50%;
 `;
 const StyledButton = styled(Button)`
   padding: 10px 20px;
@@ -178,12 +179,10 @@ const LoginForm = ({ navigate }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleFormSwitch = () => {
-    setIsSignup(!isSignup);
-  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log("Loggin in")
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         navigate('/home'); // Redirect to home after successful sign in
