@@ -28,6 +28,7 @@ const FormGroup = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  text-align: left;
 `;
 
 const Input = styled.input`
@@ -86,14 +87,16 @@ const Title = styled.h2`
 
 const StyledLabel = styled.label`
   /* margin-bottom: 10px; */
+  width: 20%;
   justify-content: center;
   font-weight: bold;
   margin-right: 10px;
-  align-items: center;
+  align-items: left;
 `;
 
 const StyledInput = styled(Input)`
   /* margin-bottom: 10px; */
+  width: 70%;
   padding: 10px;
   font-size: 16px;
   color: #7f7f7f;
@@ -105,6 +108,9 @@ const StyledInput = styled(Input)`
 const StyledSelect = styled(Select)`
   /* margin-bottom: 10px; */
   justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 80%;
   padding: 10px;
   font-size: 16px;
   color: #7f7f7f;
@@ -268,7 +274,7 @@ const SignupForm = ({ navigate }) => {
   return (
     <Form onSubmit={handleFormSubmit}>
       <FormGroup>
-        <StyledLabel htmlFor="name">Name:</StyledLabel>
+        <StyledLabel htmlFor="name">Name</StyledLabel>
         <StyledInput
           type="text"
           id="name"
@@ -279,7 +285,7 @@ const SignupForm = ({ navigate }) => {
         />
       </FormGroup>
       <FormGroup>
-        <StyledLabel htmlFor="email">Email:</StyledLabel>
+        <StyledLabel htmlFor="email">Email</StyledLabel>
         <StyledInput
           type="email"
           id="email"
@@ -290,7 +296,7 @@ const SignupForm = ({ navigate }) => {
         />
       </FormGroup>
       <FormGroup>
-        <StyledLabel htmlFor="tel">Phone Number:</StyledLabel>
+        <StyledLabel htmlFor="tel">Phone Number</StyledLabel>
         <StyledInput
           type="tel"
           id="number"
@@ -301,7 +307,7 @@ const SignupForm = ({ navigate }) => {
         />
       </FormGroup>
       <FormGroup>
-        <StyledLabel htmlFor="password">Password:</StyledLabel>
+        <StyledLabel htmlFor="password">Password</StyledLabel>
         <StyledInput
           type="password"
           id="password"
@@ -312,7 +318,7 @@ const SignupForm = ({ navigate }) => {
         />
       </FormGroup>
       <FormGroup>
-        <StyledLabel htmlFor="confirmPassword">Confirm Password:</StyledLabel>
+        <StyledLabel htmlFor="confirmPassword">Confirm Password</StyledLabel>
         <StyledInput
           type="password"
           id="confirmPassword"
@@ -323,7 +329,7 @@ const SignupForm = ({ navigate }) => {
         />
       </FormGroup>
       <FormGroup>
-      <StyledLabel htmlFor="branch">Branch:</StyledLabel>
+      <StyledLabel htmlFor="branch">Branch</StyledLabel>
           <StyledSelect
             id="branch"
             value={branch}
@@ -337,7 +343,7 @@ const SignupForm = ({ navigate }) => {
           </StyledSelect>
       </FormGroup>
       <FormGroup>
-        <StyledLabel htmlFor="batch">Batch:</StyledLabel>
+        <StyledLabel htmlFor="batch">Batch</StyledLabel>
         <StyledSelect
             id="batch"
             value={batch}
