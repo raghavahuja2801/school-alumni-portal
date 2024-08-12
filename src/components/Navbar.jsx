@@ -11,6 +11,7 @@ const NavbarContainer = styled.nav`
   align-items: center;
   height: 60px;
   width: 100%;
+  opacity: 80%;
 `;
 
 const Logo = styled.img`

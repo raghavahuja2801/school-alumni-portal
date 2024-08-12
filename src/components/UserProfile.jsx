@@ -152,8 +152,9 @@ import React, { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, auth} from '../firebase';
 import { storage } from '../firebase'; // Ensure you have the storage import set up
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
+
 
 
 
@@ -222,6 +223,7 @@ function UserProfile({ user }) {
           const docRef = doc(db, 'user_data', user); // Adjust 'user_data' to your Firestore collection name
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
+            console.log('logged in')
             setUserData(docSnap.data());
             console.log(docSnap.data())
             if (docSnap.data().status == false){
