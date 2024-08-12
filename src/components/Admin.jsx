@@ -8,34 +8,38 @@ import Footer from './Footer';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-// Assuming you have Navbar and Footer components already defined
-
-const LoginContainer = styled.div`
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-`;
-
-const LoginForm = styled.form`
+// Styled components for styling
+const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  background-color: #f0f0f0;
 `;
 
-const FormLabel = styled.label`
-  margin-bottom: 8px;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: auto;
 `;
 
-const FormInput = styled.input`
-  padding: 10px;
-  margin-bottom: 16px;
+const FormGroup = styled(Form)`
+  margin-bottom: 15px;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-between;
+`;
+
+const Input = styled.input`
+  padding: 8px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
 `;
 
-const SubmitButton = styled.button`
-  padding: 12px;
+const Button = styled.button`
+  padding: 10px;
+  font-size: 16px;
+  width: auto;
   background-color: #007bff;
   color: #ffffff;
   border: none;
@@ -43,11 +47,109 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
+
+const Select = styled.select`
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const Option = styled.option`
+  padding: 8px;
+  font-size: 16px;
+`;
+
+const BackgroundImageContainer = styled.div`
+  background-image: url("../src/assets/background.png");
+  background-size: cover; 
+  background-position: center;
+  height: 500px;
+`
+
+const LoginFormContainer = styled.div`
+  max-width: 400px ;
+  width: auto;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #1A9D8D, #FFD902);
+  border-radius: 20px;
+  text-align: center;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 10px;
+  font-weight: bold;
+`;
+
+const StyledLabel = styled.label`
+  margin-bottom: 10px;
+  font-weight: bold;
+  margin-right: 10px;
+`;
+
+const StyledInput = styled(Input)`
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  color: #7f7f7f;
+  background-color: #D9D9D9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+`;
+
+const StyledSelect = styled(Select)`
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  color: #7f7f7f;
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+`;
+const StyledButton = styled(Button)`
+  padding: 10px 20px;
+  background-color: #1A9D8D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: #0b6ea8;
+  }
+`;
+
+const SignUpLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const ForgotPasswordLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  color: #7f7f7f;
+  text-decoration: none;
+`;
+
+
 const AdminLoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSignedIn, setSignedIn] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -83,33 +185,41 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <LoginContainer>
-        <h2>Admin Login</h2>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <LoginForm onSubmit={handleFormSubmit}>
-          <FormLabel htmlFor="email">Email:</FormLabel>
-          <FormInput
+    <PageContainer>
+      <Navbar isSignedIn={isSignedIn} /> 
+      <BackgroundImageContainer>
+        <LoginFormContainer>
+          <Title>Admin Login</Title>
+      <Form onSubmit={handleFormSubmit}>
+        <FormGroup>
+          <StyledLabel>Email</StyledLabel>
+          <StyledInput
             type="email"
             id="email"
+            placeholder="Enter a valid email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <FormLabel htmlFor="password">Password:</FormLabel>
-          <FormInput
+        </FormGroup>
+        <FormGroup>
+        <StyledLabel>Password</StyledLabel>
+          <StyledInput
             type="password"
             id="password"
+            placeholder="Password Required"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <SubmitButton type="submit">Login</SubmitButton>
-        </LoginForm>
-      </LoginContainer>
+        </FormGroup>
+        <StyledButton type="submit">Sign In</StyledButton>
+      </Form>
+      <ForgotPasswordLink href="/forgot-password">Forgot Password?</ForgotPasswordLink>
+      </LoginFormContainer>
+      </BackgroundImageContainer>
       <Footer />
-    </div>
+      </PageContainer>
   );
 };
 

@@ -1,171 +1,3 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import {  createUserWithEmailAndPassword,signInWithEmailAndPassword  } from 'firebase/auth';
-// import { auth, db } from '../firebase';
-// import { doc, setDoc } from "firebase/firestore"; 
-// import Navbar from './Navbar';
-// import Footer from './Footer';
-// import styled from 'styled-components';
-
-
-  
-
-
-// const LoginForm = () => {
-//   const navigate = useNavigate();
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const handleFormSubmit = (event) => {
-//     event.preventDefault();
-//     signInWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//         // Signed in
-//         const user = userCredential.user;
-//         navigate("/home") // Redirect to login after successful signin (might want to redirect to a different page)
-//     })
-//     .catch((error) => {
-//         const errorCode = error.code;
-//         const errorMessage = error.message;
-//         console.log(errorCode, errorMessage)
-//     });
-//     // Implement form submission logic here
-//     // This would typically involve sending data to a backend server
-//     console.log('Submitting form...');
-//   };
-
-//   return (
-//     <form onSubmit={handleFormSubmit}>
-//       <label htmlFor="email">Email:</label>
-//       <input
-//         type="email"
-//         id="email"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//         required
-//       />
-//       <label htmlFor="password">Password:</label>
-//       <input
-//         type="password"
-//         id="password"
-//         value={password}
-//         onChange={(e) => setPassword(e.target.value)}
-//         required
-//       />
-//       <button type="submit">Sign In</button>
-//     </form>
-//   );
-// };
-
-// const SignupForm = () => {
-//   const navigate = useNavigate();
-//   const [name, setName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-  
-//   const handleFormSubmit = (event) => {
-//     event.preventDefault();
-//     createUserWithEmailAndPassword(auth, email, password)
-//           .then((userCredential) => {
-//               // Signed in
-//               const user = userCredential.user;
-//               console.log(user);
-//               console.log("Adding to db!")
-//               setDoc(doc(db, "user_data", user.uid), 
-//                 {
-//                 Name: name,
-//                 Email: email,
-//                 }
-//               )
-//               navigate('/home')
-//           })
-//           .catch((error) => {
-//               const errorCode = error.code;
-//               const errorMessage = error.message;
-//               console.log(errorCode, errorMessage);
-//               // ..
-//               });
-//     // Implement form submission logic here
-//     // This would typically involve sending data to a backend server
-//     console.log('Submitting form...');
-//   };
-  
-
-//   return (
-//     <form onSubmit={handleFormSubmit}>
-//       <label htmlFor="name">Name:</label>
-//       <input
-//         type="text"
-//         id="name"
-//         value={name}
-//         onChange={(e) => setName(e.target.value)}
-//         required
-//       />
-//       <label htmlFor="email">Email:</label>
-//       <input
-//         type="email"
-//         id="email"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//         required
-//       />
-//       <label htmlFor="password">Password:</label>
-//       <input
-//         type="password"
-//         id="password"
-//         value={password}
-//         onChange={(e) => setPassword(e.target.value)}
-//         required
-//       />
-//       <label htmlFor="confirmPassword">Confirm Password:</label>
-//       <input
-//         type="password"
-//         id="confirmPassword"
-//         value={confirmPassword}
-//         onChange={(e) => setConfirmPassword(e.target.value)}
-//         required
-//       />
-//       <button type="submit">Sign Up</button>
-//     </form>
-//   );
-// };
-
-
-// const LoginPage = () => {
-//   console.log("Login Page Loading!")
-  // const [isSignup, setIsSignup] = useState(false);
-
-
-//   const handleFormSwitch = () => {
-//     setIsSignup(!isSignup);
-//   };
-
-//   return (
-//     <div>
-      
-//     <Navbar isSignedIn = {false} />
-//     <div className="login-page">
-//       <h1>Welcome!</h1>
-//       {isSignup ? (
-//         <SignupForm/>
-//       ) : (
-//         <LoginForm  />
-//       )}
-//       <p>
-//         {isSignup ? 'Already have an account?' : 'New user?'}
-//         <button onClick={handleFormSwitch}>
-//           {isSignup ? 'Sign In' : 'Sign Up'}
-//         </button>
-//       </p>
-//     </div>
-//     <Footer />
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -175,6 +7,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import styled from 'styled-components';
 
+
 // Styled components for styling
 const PageContainer = styled.div`
   display: flex;
@@ -183,37 +16,17 @@ const PageContainer = styled.div`
   background-color: #f0f0f0;
 `;
 
-const ContentContainer = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Card = styled.div`
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  width: 350px;
-`;
-
-const CardTitle = styled.h2`
-  text-align: center;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  width: auto;
 `;
 
-const FormGroup = styled.div`
+const FormGroup = styled(Form)`
   margin-bottom: 15px;
-`;
-
-const Label = styled.label`
-  margin-bottom: 5px;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-between;
 `;
 
 const Input = styled.input`
@@ -226,6 +39,7 @@ const Input = styled.input`
 const Button = styled.button`
   padding: 10px;
   font-size: 16px;
+  width: auto;
   background-color: #007bff;
   color: #ffffff;
   border: none;
@@ -246,6 +60,89 @@ const Option = styled.option`
   font-size: 16px;
 `;
 
+const BackgroundImageContainer = styled.div`
+  background-image: url("../src/assets/background.png");
+  background-size: cover; 
+  background-position: center;
+`
+
+const LoginFormContainer = styled.div`
+  max-width: 400px ;
+  width: auto;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #1A9D8D, #FFD902);
+  border-radius: 20px;
+  text-align: center;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 10px;
+  font-weight: bold;
+`;
+
+const StyledLabel = styled.label`
+  margin-bottom: 10px;
+  font-weight: bold;
+  margin-right: 10px;
+`;
+
+const StyledInput = styled(Input)`
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  color: #7f7f7f;
+  background-color: #D9D9D9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+`;
+
+const StyledSelect = styled(Select)`
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  color: #7f7f7f;
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+`;
+const StyledButton = styled(Button)`
+  padding: 10px 20px;
+  background-color: #1A9D8D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: #0b6ea8;
+  }
+`;
+
+const SignUpLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const ForgotPasswordLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  color: #7f7f7f;
+  text-decoration: none;
+`;
+
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -259,31 +156,37 @@ const LoginPage = () => {
   return (
     <PageContainer>
       <Navbar isSignedIn={isSignedIn} /> 
-      <ContentContainer>
-        <Card>
-          <CardTitle>{isSignup ? 'Sign Up' : 'Sign In'}</CardTitle>
+      <BackgroundImageContainer>
+      <LoginFormContainer>
+        <Title>{isSignup ? 'Sign Up' : 'Alumni Login'}</Title>
           {isSignup ? <SignupForm navigate={navigate} /> : <LoginForm navigate={navigate} />}
           <p>
-            {isSignup ? 'Already have an account?' : 'New user?'}
-            <Button onClick={handleFormSwitch}>{isSignup ? 'Sign In' : 'Sign Up'}</Button>
+            <SignUpLink onClick={handleFormSwitch}>{isSignup ? 'Already have an account? Sign In' : 'Don\'t have an account? Sign Up'}</SignUpLink>
           </p>
-        </Card>
-      </ContentContainer>
+      </LoginFormContainer>
+      </BackgroundImageContainer>
       <Footer />
     </PageContainer>
   );
 };
 
+
+
+
+
 const LoginForm = ({ navigate }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleFormSwitch = () => {
+    setIsSignup(!isSignup);
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/home'); // Redirect to home after successful signin
+        navigate('/home'); // Redirect to home after successful sign in
       })
       .catch((error) => {
         console.error('Sign in error:', error);
@@ -291,29 +194,34 @@ const LoginForm = ({ navigate }) => {
   };
 
   return (
-    <Form onSubmit={handleFormSubmit}>
-      <FormGroup>
-        <Label htmlFor="email">Email:</Label>
-        <Input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="password">Password:</Label>
-        <Input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </FormGroup>
-      <Button type="submit">Sign In</Button>
-    </Form>
+    <div>
+      <Form onSubmit={handleFormSubmit}>
+        <FormGroup>
+          <StyledLabel>Email</StyledLabel>
+          <StyledInput
+            type="email"
+            id="email"
+            placeholder="Enter a valid email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </FormGroup>
+        <FormGroup>
+        <StyledLabel>Password</StyledLabel>
+          <StyledInput
+            type="password"
+            id="password"
+            placeholder="Password Required"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </FormGroup>
+        <StyledButton type="submit">Sign In</StyledButton>
+      </Form>
+      <ForgotPasswordLink href="/forgot-password">Forgot Password?</ForgotPasswordLink>
+    </div>
   );
 };
 
@@ -355,58 +263,63 @@ const SignupForm = ({ navigate }) => {
   return (
     <Form onSubmit={handleFormSubmit}>
       <FormGroup>
-        <Label htmlFor="name">Name:</Label>
-        <Input
+        <StyledLabel htmlFor="name">Name:</StyledLabel>
+        <StyledInput
           type="text"
           id="name"
+          placeholder='Enter Name'
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="email">Email:</Label>
-        <Input
+        <StyledLabel htmlFor="email">Email:</StyledLabel>
+        <StyledInput
           type="email"
           id="email"
+          placeholder='Enter Valid Email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="email">Phone Number:</Label>
-        <Input
-          type="number"
+        <StyledLabel htmlFor="tel">Phone Number:</StyledLabel>
+        <StyledInput
+          type="tel"
           id="number"
+          placeholder='Enter Phone Number'
           value={number}
           onChange={(e) => setNumber(e.target.value)}
           required
         />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="password">Password:</Label>
-        <Input
+        <StyledLabel htmlFor="password">Password:</StyledLabel>
+        <StyledInput
           type="password"
           id="password"
+          placeholder='Enter Password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="confirmPassword">Confirm Password:</Label>
-        <Input
+        <StyledLabel htmlFor="confirmPassword">Confirm Password:</StyledLabel>
+        <StyledInput
           type="password"
           id="confirmPassword"
+          placeholder='Confirm Password'
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
       </FormGroup>
       <FormGroup>
-      <Label htmlFor="branch">Branch:</Label>
-          <Select
+      <StyledLabel htmlFor="branch">Branch:</StyledLabel>
+          <StyledSelect
             id="branch"
             value={branch}
             onChange={(e) => setBranch(e.target.value)}
@@ -415,12 +328,12 @@ const SignupForm = ({ navigate }) => {
             <Option value="">Select Branch</Option>
             <Option value="brij vihar">Brij Vihar</Option>
             <Option value="noida">Noida</Option>
-            <Option value="gangaram">GangaRam</Option>
-          </Select>
+            <Option value="gangaram">Gangaram</Option>
+          </StyledSelect>
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="batch">Batch:</Label>
-        <Select
+        <StyledLabel htmlFor="batch">Batch:</StyledLabel>
+        <StyledSelect
             id="batch"
             value={batch}
             onChange={(e) => setBatch(e.target.value)}
@@ -430,9 +343,9 @@ const SignupForm = ({ navigate }) => {
             <Option value="2024">2024</Option>
             <Option value="2024">2023</Option>
             <Option value="2022">2022</Option>
-          </Select>
+          </StyledSelect>
       </FormGroup>
-      <Button type="submit">Sign Up</Button>
+      <StyledButton type="submit">Sign Up</StyledButton>
     </Form>
   );
 };
