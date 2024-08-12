@@ -63,7 +63,7 @@ const Navbar = ({ isSignedIn }) => {
 
   return (
     <NavbarContainer>
-      <Logo src="../src/assets/bbps_logo.jpeg" alt="Logo" />
+      <Logo src="https://i.imgur.com/PkTeIUz.jpeg" alt="Logo" />
       <NavButtons>
         <NavButton onClick={handleAdmin}>Home</NavButton>
         <NavButton>About</NavButton>
