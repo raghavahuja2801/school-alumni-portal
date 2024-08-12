@@ -61,7 +61,7 @@ const Option = styled.option`
 `;
 
 const BackgroundImageContainer = styled.div`
-  background-image: url("https://i.imgur.com/PkTeIUz.jpeg");
+  background-image: url("https://i.imgur.com/KQEEOTF.png");
   background-size: cover; 
   background-position: center;
   height: 500px;
