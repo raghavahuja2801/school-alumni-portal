@@ -26,7 +26,7 @@ const FormGroup = styled.div`
   display: flex;
   margin-bottom: 15px;
   flex-direction: row;
-  align-items: left;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -85,13 +85,15 @@ const Title = styled.h2`
 `;
 
 const StyledLabel = styled.label`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  justify-content: center;
   font-weight: bold;
   margin-right: 10px;
+  align-items: center;
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   padding: 10px;
   font-size: 16px;
   color: #7f7f7f;
