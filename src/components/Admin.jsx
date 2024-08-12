@@ -26,8 +26,9 @@ const FormGroup = styled.div`
   display: flex;
   margin-bottom: 15px;
   flex-direction: row;
-  align-items: left;
+  align-items: center;
   justify-content: space-between;
+  text-align: left;
 `;
 
 const Input = styled.input`
@@ -65,7 +66,6 @@ const BackgroundImageContainer = styled.div`
   background-image: url("https://i.imgur.com/KQEEOTF.png");
   background-size: cover; 
   background-position: center;
-  height: 500px;
 `
 
 const LoginFormContainer = styled.div`
@@ -73,7 +73,7 @@ const LoginFormContainer = styled.div`
   width: auto;
   margin: auto;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   padding: 20px;
   background: linear-gradient(to bottom, #1A9D8D, #FFD902);
   border-radius: 20px;
@@ -86,13 +86,17 @@ const Title = styled.h2`
 `;
 
 const StyledLabel = styled.label`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  width: 20%;
+  justify-content: center;
   font-weight: bold;
   margin-right: 10px;
+  align-items: left;
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  width: 70%;
   padding: 10px;
   font-size: 16px;
   color: #7f7f7f;
@@ -101,7 +105,20 @@ const StyledInput = styled(Input)`
   border-radius: 8px;
 `;
 
-
+const StyledSelect = styled(Select)`
+  /* margin-bottom: 10px; */
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  color: #7f7f7f;
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 50%;
+`;
 const StyledButton = styled(Button)`
   padding: 10px 20px;
   background-color: #1A9D8D;
@@ -117,7 +134,18 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const SignUpLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`;
 
 const ForgotPasswordLink = styled.a`
   display: block;
