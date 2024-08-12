@@ -103,7 +103,8 @@ const StyledInput = styled(Input)`
 `;
 
 const StyledSelect = styled(Select)`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  justify-content: center;
   padding: 10px;
   font-size: 16px;
   color: #7f7f7f;
