@@ -22,7 +22,8 @@ const Form = styled.form`
   width: auto;
 `;
 
-const FormGroup = styled(Form)`
+const FormGroup = styled.div`
+  display: flex;
   margin-bottom: 15px;
   flex-direction: row;
   align-items: left;
@@ -133,6 +134,7 @@ const SignUpLink = styled.a`
 
   &:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 `;
 
@@ -189,6 +191,7 @@ const LoginForm = ({ navigate }) => {
       })
       .catch((error) => {
         console.error('Sign in error:', error);
+        alert("Invalid Credentials");
       });
   };
 

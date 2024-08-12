@@ -22,7 +22,8 @@ const Form = styled.form`
   width: auto;
 `;
 
-const FormGroup = styled(Form)`
+const FormGroup = styled.div`
+  display: flex;
   margin-bottom: 15px;
   flex-direction: row;
   align-items: left;
@@ -100,15 +101,7 @@ const StyledInput = styled(Input)`
   border-radius: 8px;
 `;
 
-const StyledSelect = styled(Select)`
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 16px;
-  color: #7f7f7f;
-  background-color: #f3f3f3;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-`;
+
 const StyledButton = styled(Button)`
   padding: 10px 20px;
   background-color: #1A9D8D;
@@ -124,17 +117,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const SignUpLink = styled.a`
-  display: block;
-  margin-top: 10px;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
 
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 const ForgotPasswordLink = styled.a`
   display: block;
@@ -158,7 +141,6 @@ const AdminLoginPage = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user.uid;
-      console.log(user)
       const docRef = doc(db, 'user_data', user); // Adjust 'user_data' to your Firestore collection name
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
@@ -170,17 +152,19 @@ const AdminLoginPage = () => {
             }
             else{
                 console.log("You are not admin")
+                alert("No admin Privalages");
                 navigate('/home')
             }
       }
       else{
-        console.log("You don't have admin privalages!!")
-        navigate("/login")
+        console.log("You don't have admin privalages!!");
+        navigate("/login");
       }
       
     } catch (error) {
       setError(error.message);
       console.error('Error logging in:', error);
+      alert("Invalid Credentials")
     }
   };
 
