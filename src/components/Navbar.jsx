@@ -66,7 +66,7 @@ const Navbar = ({ isSignedIn }) => {
       <Logo src="https://i.imgur.com/PkTeIUz.jpeg" alt="Logo" />
       <NavButtons>
         <NavButton onClick={handleAdmin}>Home</NavButton>
-        <NavButton>About</NavButton>
+        <NavButton>Connect</NavButton>
         <NavButton>Circullars</NavButton>
         <NavButton onClick={handleLogout}>{isSignedIn ? 'Logout' : 'Login'}</NavButton>
       </NavButtons>
