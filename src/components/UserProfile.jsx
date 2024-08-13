@@ -158,15 +158,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const ProfileContainer = styled.div`
-  max-width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   margin: 15px auto;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  background: transparent;
 `;
 
 const ProfileHeader = styled.div`
@@ -240,11 +238,12 @@ const StyledButton = styled.button`
 `;
 
 const StyledInput = styled.input`
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: 5px;
+  width: 50%;
+  padding: 5px;
   font-size: 16px;
   color: #7f7f7f;
-  background-color: #D9D9D9;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
 `;
@@ -380,7 +379,7 @@ function UserProfile({ user }) {
       <ProfileData>
         <DataContainer>
           <ContentContainer>
-            <h3>{userData.Name}</h3>
+            <h3>Name:{userData.Name}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>University: </h3>
@@ -398,7 +397,7 @@ function UserProfile({ user }) {
         </DataContainer>
         <DataContainer>
           <ContentContainer>
-            <h3>{userData.Email}</h3>
+            <h3>Email:{userData.Email}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>Degree: </h3>
@@ -416,7 +415,7 @@ function UserProfile({ user }) {
         </DataContainer>
         <DataContainer>
           <ContentContainer>
-            <h3>{userData.Number}</h3>
+            <h3>Number:{userData.Number}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>Occupation: </h3>
