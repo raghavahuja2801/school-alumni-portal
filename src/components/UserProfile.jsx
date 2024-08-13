@@ -216,12 +216,13 @@ const UploadInput = styled.input`
 const UploadButton = styled.label`
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #1A9D8D;
   color: #ffffff;
   border: none;
   margin: 5px 0 5px 0;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
 `;
 
 const StyledButton = styled.button`
@@ -374,7 +375,7 @@ function UserProfile({ user }) {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <StyledButton htmlFor="profilePicture">Upload</StyledButton>
+        <UploadButton htmlFor="profilePicture">Upload</UploadButton>
       </ProfileHeader>
       <ProfileData>
         <DataContainer>
