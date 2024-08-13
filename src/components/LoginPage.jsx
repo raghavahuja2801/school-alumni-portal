@@ -19,11 +19,11 @@ const PageContainer = styled.div`
 
 
 const PageHeading = styled.h2`
-  max-width: 400px ;
+  max-width: 600px ;
   width: auto;
   margin: auto;
   padding: 15px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-top: 20px;
   color: white;
   text-align: center;
