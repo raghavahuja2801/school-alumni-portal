@@ -7,36 +7,6 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <div className="top-section">
-        <div className="contact">
-          <p>Get in Touch:</p>
-          <p>P +91 (011) 2574506</p>
-          </div>
-          <div className='MailUs'>
-          <p>Mail us:</p>
-          <p>ces@balbharati.org</p>
-          <p>For admission inquiry please write email directly to school.</p>
-        </div>
-        <div className="address">
-          <p>Address:</p>
-          <p>Child Education Society (Regd)</p>
-          <p>C/O Bal Bharati Public School,</p>
-          <p>Ganga Ram Hospital Marg,</p>
-          <p>New Delhi-110060</p>
-        </div>
-        <div className="social-media">
-          <p>Follow us on:</p>
-          <a href="#">
-            <i className="fab fa-facebook-f"></i>
-          </a>
-          <a href="#">
-            <i className="fab fa-instagram"></i>
-          </a>
-          <a href="#">
-            <i className="fab fa-linkedin-in"></i>
-          </a>
-        </div>
-      </div>
       <div className="middle-section">
         <div className="explore">
           <ul>

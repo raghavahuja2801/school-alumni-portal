@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import LoginPage from './components/LoginPage';
 import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import Admin from './components/Admin';
 import AdminDashboard from './components/AdminDashboard';
