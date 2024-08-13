@@ -16,6 +16,19 @@ const PageContainer = styled.div`
   background-color: #f0f0f0;
 `;
 
+
+const PageHeading = styled.h2`
+  max-width: 400px ;
+  width: auto;
+  margin: auto;
+  padding: 15px;
+  font-size: 2rem;
+  margin-top: 20px;
+  color: white;
+  text-align: center;
+
+`
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -169,6 +182,9 @@ const LoginPage = () => {
     <PageContainer>
       <Navbar isSignedIn={isSignedIn} /> 
       <BackgroundImageContainer>
+        <PageHeading>
+          "Let noble thoughts come to us from all side"
+        </PageHeading>
       <LoginFormContainer>
         <Title>{isSignup ? 'Sign Up' : 'Alumni Login'}</Title>
           {isSignup ? <SignupForm navigate={navigate} /> : <LoginForm navigate={navigate} />}
