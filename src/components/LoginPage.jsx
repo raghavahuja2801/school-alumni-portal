@@ -281,7 +281,8 @@ const SignupForm = ({ navigate }) => {
           status: false,
           access: 'student',
         });
-        navigate('/home'); // Redirect to home after successful signup
+        alert('Please wait to be approved by the admin'); // Redirect to home after successful signup
+        navigate("/")
       })
       .catch((error) => {
         console.error('Sign up error:', error);
