@@ -172,6 +172,7 @@ const ProfileContainer = styled.div`
 const ProfileHeader = styled.div`
   text-align: center;
   display: flex;
+  width: 25%;
   margin-right: 15px;
   flex-direction: column;
   align-items: center;
@@ -180,14 +181,23 @@ const ProfileHeader = styled.div`
   `
 
 const ProfileData = styled.div`
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: left;
-  justify-content: center;
+  justify-content: space-evenly;
 
 `
 
 const DataContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: left;
+`
+
+const ContentContainer = styled.div`
+  width: 50%;
   display: flex;
   flex-direction: row;
 `
@@ -247,6 +257,7 @@ function UserProfile({ user }) {
     University: '',
     Degree: '',
     Occupation: '',
+    Company: '',
   });
 
   useEffect(() => {
@@ -255,6 +266,7 @@ function UserProfile({ user }) {
         University: userData.University || '',
         Degree: userData.Degree || '',
         Occupation: userData.Occupation || '',
+        Company: userData.Company || '',
       });
     }
   }, [userData, isEditing]);
@@ -265,6 +277,7 @@ function UserProfile({ user }) {
         University: userData.University || '',
         Degree: userData.Degree || '',
         Occupation: userData.Occupation || '',
+        Company: userData.Company || '',
       });
     }
     setIsEditing(!isEditing);
@@ -364,54 +377,81 @@ function UserProfile({ user }) {
         <UploadButton htmlFor="profilePicture">Upload Profile Picture</UploadButton>
       </ProfileHeader>
       <ProfileData>
-        <h2>{userData.Name}</h2>
-        <h3>{userData.Email}</h3>
-        <h3>{userData.Number}</h3>
-        <h3>Batch of {userData.Batch}</h3>
-      </ProfileData>
-      <ProfileData>
         <DataContainer>
-          <h3>University: </h3>
-          {isEditing ? (
-            <StyledInput
-              type="text"
-              name="University"
-              value={profileData.University}
-              onChange={handleChange}
-            />
-          ) : (
-            <h3>{userData.University}</h3>
-          )}
+          <ContentContainer>
+            <h3>{userData.Name}</h3>
+          </ContentContainer>
+          <ContentContainer>
+            <h3>University: </h3>
+            {isEditing ? (
+              <StyledInput
+                type="text"
+                name="University"
+                value={profileData.University}
+                onChange={handleChange}
+              />
+            ) : (
+              <h3>{userData.University}</h3>
+            )}
+          </ContentContainer>
         </DataContainer>
         <DataContainer>
-          <h3>Degree: </h3>
-          {isEditing ? (
-            <StyledInput
-              type="text"
-              name="Degree"
-              value={profileData.Degree}
-              onChange={handleChange}
-            />
-          ) : (
-            <h3>{userData.Degree}</h3>
-          )}
+          <ContentContainer>
+            <h3>{userData.Email}</h3>
+          </ContentContainer>
+          <ContentContainer>
+            <h3>Degree: </h3>
+            {isEditing ? (
+              <StyledInput
+                type="text"
+                name="Degree"
+                value={profileData.Degree}
+                onChange={handleChange}
+              />
+            ) : (
+              <h3>{userData.Degree}</h3>
+            )}
+          </ContentContainer>
         </DataContainer>
         <DataContainer>
-          <h3>Occupation: </h3>
-          {isEditing ? (
-            <StyledInput
-              type="text"
-              name="Occupation"
-              value={profileData.Occupation}
-              onChange={handleChange}
-            />
-          ) : (
-            <h3>{userData.Occupation}</h3>
-          )}
+          <ContentContainer>
+            <h3>{userData.Number}</h3>
+          </ContentContainer>
+          <ContentContainer>
+            <h3>Occupation: </h3>
+            {isEditing ? (
+              <StyledInput
+                type="text"
+                name="Occupation"
+                value={profileData.Occupation}
+                onChange={handleChange}
+              />
+            ) : (
+              <h3>{userData.Occupation}</h3>
+            )}
+          </ContentContainer>
         </DataContainer>
-        <StyledButton onClick={isEditing ? handleSave : toggleEdit}>
-          {isEditing ? 'Save' : 'Edit'}
-        </StyledButton>
+        <DataContainer>
+          <ContentContainer>
+            <h3>Batch of {userData.Batch}</h3>
+          </ContentContainer>
+          <ContentContainer>
+          <h3>Company: </h3>
+            {isEditing ? (
+              <StyledInput
+                type="text"
+                name="Company"
+                value={profileData.Company}
+                onChange={handleChange}
+              />
+            ) : (
+              <h3>{userData.Company}</h3>
+            )}
+          </ContentContainer>
+        </DataContainer>
+          <StyledButton onClick={isEditing ? handleSave : toggleEdit}>
+            {isEditing ? 'Save' : 'Edit'}
+          </StyledButton>
       </ProfileData>
     </ProfileContainer>
   );
@@ -419,4 +459,5 @@ function UserProfile({ user }) {
 
 
 export default UserProfile;
+
 
