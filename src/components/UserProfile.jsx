@@ -202,11 +202,11 @@ const ContentContainer = styled.div`
   flex-direction: row;
 `
 const ProfileImage = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 5px 0 5px 0;
+  margin: 5px 0 10px 0;
 `;
 
 const UploadInput = styled.input`
@@ -374,7 +374,7 @@ function UserProfile({ user }) {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <UploadButton htmlFor="profilePicture">Upload Profile Picture</UploadButton>
+        <StyledButton htmlFor="profilePicture">Upload</StyledButton>
       </ProfileHeader>
       <ProfileData>
         <DataContainer>
