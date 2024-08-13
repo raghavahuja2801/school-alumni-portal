@@ -15,6 +15,29 @@ const HomePages = styled.div`
   background-color: white;
 `
 
+const HomeContainer = styled.div`
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("https://i.imgur.com/KQEEOTF.png");
+    background-size: cover;
+    background-position:  cover;
+    background-size: 150%;
+    opacity: 0.6; /* Change this value to adjust the opacity */
+    z-index: -1;
+  }
+`;
+
 const HomePage = () => {
     const navigate = useNavigate();
     const [isSignedIn, setIsSignedIn] = useState(false);
@@ -83,8 +106,10 @@ const HomePage = () => {
     return (
             <HomePages>
             <Navbar isSignedIn = {isSignedIn}/>
+            <HomeContainer>
               <UserProfile user={uid}/>
               <PdfList user_id={uid}/>
+              </HomeContainer>
               <Footer />
             </HomePages>
     );
