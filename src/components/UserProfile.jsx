@@ -415,7 +415,7 @@ function UserProfile({ user }) {
         </DataContainer>
         <DataContainer>
           <ContentContainer>
-            <h3>Number:{userData.Number}</h3>
+            <h3>Phone Number:{userData.Number}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>Occupation: </h3>
