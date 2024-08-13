@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
-import NoticeSection from './NoticeSection';
-import CircularSection from './CircularSection';
 import Footer from './Footer';
 import Navbar from './Navbar.jsx';
 import styled from 'styled-components';
-import PdfList from './CircularSection';
+import UserToDo from './UserToDo.jsx';
 
 const HomePages = styled.div`
   width: 100%;
@@ -108,7 +106,7 @@ const HomePage = () => {
             <Navbar isSignedIn = {isSignedIn}/>
             <HomeContainer>
               <UserProfile user={uid}/>
-              <PdfList user_id={uid}/>
+              <UserToDo />
               </HomeContainer>
               <Footer />
             </HomePages>
