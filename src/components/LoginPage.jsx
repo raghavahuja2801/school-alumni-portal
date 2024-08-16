@@ -95,6 +95,7 @@ const LoginFormContainer = styled.div`
 
   @media (max-width: 768px) {
     width: 80%;
+    margin-bottom: 80px;
   }
 `;
 

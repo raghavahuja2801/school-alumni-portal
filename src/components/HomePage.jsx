@@ -48,6 +48,7 @@ const HomePage = () => {
             } else {
               // User is signed out
               // ...
+              alert("Please sign in")
               navigate('/login')
               console.log("user is logged out")
             }
