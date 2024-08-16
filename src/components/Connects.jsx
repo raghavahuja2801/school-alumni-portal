@@ -163,7 +163,6 @@ const Connects = () => {
     const fetchStudents = async (userData) => {
       if(userData){
       try {
-        console.log("Fetching students");
         const studentsRef = collection(db, 'user_data'); // Adjust to your Firestore collection name
         const q = query(studentsRef, where('Branch', '==', userData.Branch), where('Batch', '==', userData.Batch)); // Adjust branch filtering criteria
         const querySnapshot = await getDocs(q);
@@ -174,7 +173,6 @@ const Connects = () => {
         });
   
         setAlumni(studentList);
-        console.log(studentList);
       } catch (error) {
         console.error('Error fetching students:', error);
       }

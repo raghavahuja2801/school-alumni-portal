@@ -99,13 +99,13 @@ import { useAuth } from '../context/AuthContext';
 
 const NavbarContainer = styled.nav`
   z-index: 100;
-  background-color: #199d8d;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 60px;
   width: 100%;
-  opacity: 80%;
+  opacity: 100%;
   position: relative; /* Required for the dropdown */
 `;
 
@@ -128,13 +128,14 @@ const NavButtons = styled.div`
     left: 0;
     width: 100%;
     height: auto;
-    background-color: #199d8d;
+    background-color: white;
+    opacity: 100%;
   }
 `;
 
 const NavButton = styled.button`
   background-color: transparent;
-  color: white;
+  color: black;
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -142,7 +143,8 @@ const NavButton = styled.button`
   margin-left: 1rem;
 
   &:hover {
-    background-color: #09685d;
+    color: white;
+    background-color: rgb(170, 170, 170);
   }
 
   @media (max-width: 768px) {
@@ -157,11 +159,12 @@ const BurgerMenu = styled.div`
   display: none;
   flex-direction: column;
   cursor: pointer;
+  color: black;
 
   div {
     width: 30px;
     height: 3px;
-    background-color: white;
+    background-color: black;
     margin: 4px 10px 4px 0;;
   }
 
@@ -207,7 +210,7 @@ const Navbar = ({ isSignedIn }) => {
       <NavButtons isOpen={isOpen}>
         <NavButton onClick={handleHome}>Home</NavButton>
         <NavButton onClick={handleConnects}>Connect</NavButton>
-        <NavButton>Circullars</NavButton>
+        <NavButton>Circulars</NavButton>
         <NavButton onClick={handleLogout}>{user ? 'Logout' : 'Login'}</NavButton>
       </NavButtons>
     </NavbarContainer>
