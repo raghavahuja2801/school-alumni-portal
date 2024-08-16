@@ -164,14 +164,13 @@ const Connects = () => {
       if(userData){
       try {
         const studentsRef = collection(db, 'user_data'); // Adjust to your Firestore collection name
-        const q = query(studentsRef, where('Branch', '==', userData.Branch), where('Batch', '==', userData.Batch)); // Adjust branch filtering criteria
+        const q = query(studentsRef, where('Branch', '==', userData.Branch), where('Batch', '==', userData.Batch),where('access', '==', 'student')); // Adjust branch filtering criteria
         const querySnapshot = await getDocs(q);
   
         const studentList = [];
         querySnapshot.forEach((doc) => {
           studentList.push({ id: doc.id, ...doc.data() });
         });
-  
         setAlumni(studentList);
       } catch (error) {
         console.error('Error fetching students:', error);
