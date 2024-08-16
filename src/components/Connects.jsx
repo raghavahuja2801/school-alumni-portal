@@ -121,8 +121,8 @@ const Connects = () => {
             } else {
               // User is signed out
               // ...
+              navigate('/login')
               alert("Sign in please")
-              navigate('/')
               console.log("user is logged out")
             }
           });
