@@ -69,13 +69,7 @@ const Navbar = ({ isSignedIn }) => {
   }
 
   const handleConnects = () => {
-    if(isSignedIn){
-      navigate('/home')
-      alert('sign in please')
-    }
-    else{
-      navigate('/login')
-    }
+    navigate('/connect')
   }
 
   return (
