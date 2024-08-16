@@ -58,37 +58,37 @@ const HomeContainer = styled.div`
 `;
 
 const HomePage = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  useEffect(() => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      setIsSignedIn(true)
-      // ...
-    } else {
-      // User is signed out
-      // ...
-      alert("Please sign in")
-      navigate('/login')
-      console.log("user is logged out")
-    }
+   const { user } = useAuth();
+    const navigate = useNavigate();
+    const [isSignedIn, setIsSignedIn] = useState(false);
+    useEffect(()=>{          
+            if (user) {
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              setIsSignedIn(true)
+              // ...
+            } else {
+              // User is signed out
+              // ...
+              alert("Please sign in")
+              navigate('/login')
+              console.log("user is logged out")
+            }
+         
+    }, [user])
 
-  }, [user])
-
-
-
-  return (
-    <HomePages>
-      <Navbar isSignedIn={isSignedIn} />
-      <HomeContainer>
-        <UserProfileMobile />
-        <UserToDo />
-      </HomeContainer>
-      <Footer />
-    </HomePages>
-  );
-};
+  
+  
+    return (
+            <HomePages>
+            <Navbar isSignedIn = {isSignedIn}/>
+            <HomeContainer>
+              <UserProfileMobile/>
+              <UserToDo />
+              </HomeContainer>
+              <Footer />
+            </HomePages>
+    );
+  };
 
 export default HomePage;
