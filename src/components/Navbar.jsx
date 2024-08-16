@@ -166,11 +166,12 @@ const BurgerMenu = styled.div`
     width: 30px;
     height: 3px;
     background-color: #1A9D8D;
-    margin: 4px 10px 4px 0;;
+    margin: 4px 10px 4px 0;
   }
 
   @media (max-width: 768px) {
     display: flex;
+    margin-right: 10px;
   }
 `;
 
