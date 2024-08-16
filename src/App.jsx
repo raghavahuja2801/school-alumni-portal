@@ -8,12 +8,11 @@ import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import Admin from './components/Admin';
 import AdminDashboard from './components/AdminDashboard';
-import Test from './components/Test';
 import Connects from './components/Connects';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/login',
     element: <LoginPage />,
   },
   {
@@ -29,11 +28,7 @@ const router = createBrowserRouter([
     element: <AdminDashboard />,
   },
   {
-    path: '/test',
-    element: <Test />,
-  },
-  {
-    path: '/connects',
+    path: '/connect',
     element: <Connects />,
   },
 ]);

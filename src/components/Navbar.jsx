@@ -46,23 +46,36 @@ const Navbar = ({ isSignedIn }) => {
       signOut(auth)
         .then(() => {
           // Sign-out successful.
-          navigate("/");
+          navigate("/login");
           console.log("Signed out successfully");
         })
         .catch((error) => {
           // An error happened.
+          console.log(error)
         });
     } else {
-      navigate("/");
+      navigate("/login");
     }
   };
 
   const handleHome = () => {
-    navigate('/home')
+    if(isSignedIn){
+      navigate('/home')
+    }
+    else{
+      navigate('/login')
+    }
+    
   }
 
   const handleConnects = () => {
-    navigate('/connects')
+    if(isSignedIn){
+      navigate('/home')
+      alert('sign in please')
+    }
+    else{
+      navigate('/login')
+    }
   }
 
   return (
