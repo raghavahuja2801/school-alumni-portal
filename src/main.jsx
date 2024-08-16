@@ -1,49 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import LoginPage from './components/LoginPage';
-import HomePage from './components/HomePage';
-import Admin from './components/Admin';
-import AdminDashboard from './components/AdminDashboard';
-import Test from './components/Test';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Connects from './components/Connects';
+import App from './App';
 
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginPage />,
-  },
-  {
-    path: "/home",
-    element: <HomePage />,
-  },
-  {
-    path: "/admin",
-    element: <Admin />
-  },
-  {
-    path: "/admin/dashboard",
-    element: <AdminDashboard />
-  },
-  {
-    path: "/test",
-    element: <Test />
-  },
-  {
-    path: "/connects",
-    element: <Connects />
-  }
-]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-    <RouterProvider router={router} />
+    <App/>
   // </React.StrictMode>,
 )
 
