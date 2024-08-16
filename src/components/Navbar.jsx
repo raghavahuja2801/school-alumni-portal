@@ -212,6 +212,7 @@ const Navbar = ({ isSignedIn }) => {
       <NavButtons isOpen={isOpen}>
         <NavButton onClick={handleHome}>Home</NavButton>
         <NavButton onClick={handleConnects}>Connect</NavButton>
+        <NavButton>Notices</NavButton>
         <NavButton>Circulars</NavButton>
         <NavButton onClick={handleLogout}>{user ? 'Logout' : 'Login'}</NavButton>
       </NavButtons>

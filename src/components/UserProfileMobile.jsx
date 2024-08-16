@@ -14,13 +14,17 @@ const ProfileContainer = styled.div`
   justify-content: space-around;
   margin: 15px auto;
   padding: 20px;
-  background: transparent;
+  background: rgb(34,193,195);
+  background: linear-gradient(180deg, rgba(34,193,195,1) 0%, rgba(253,202,45,1) 100%);
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 0px;
+    width: 85%;
+    padding: 10px 0;
   }
 `;
 
