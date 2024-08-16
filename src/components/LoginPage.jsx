@@ -122,6 +122,10 @@ const StyledInput = styled(Input)`
   background-color: #D9D9D9;
   border: 1px solid #ddd;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+  width: 60%; 
+  }
 `;
 
 const StyledSelect = styled(Select)`
