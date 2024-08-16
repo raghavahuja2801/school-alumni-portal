@@ -54,17 +54,18 @@ const AlumniCard = styled.div`
   text-align: center;
 `;
 
-const EmailButton = styled.button`
-  margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #007bff;
+const StyledButton = styled.button`
+  padding: 10px 20px;
+  background-color: #1A9D8D;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  
+  font-size: 16px;
+  margin-bottom: 10px;
+
   &:hover {
-    background-color: #0056b3;
+    background-color: #0b6ea8;
   }
 `;
 
@@ -120,6 +121,7 @@ const Connects = () => {
             } else {
               // User is signed out
               // ...
+              alert("Sign in please")
               navigate('/')
               console.log("user is logged out")
             }
@@ -178,7 +180,7 @@ const Connects = () => {
               <h3>{alumni.Name}</h3>
               <p>Company: {alumni.Company}</p>
               <p>Occupation: {alumni.Occupation}</p>
-              <EmailButton onClick={() => sendEmail(alumni.Email)}>Send Email</EmailButton>
+              <StyledButton onClick={() => sendEmail(alumni.Email)}>Send Email</StyledButton>
             </AlumniCard>
           ))}
         </AlumniSection>
