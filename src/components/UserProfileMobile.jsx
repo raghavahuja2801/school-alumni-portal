@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
-import { storage } from '../firebase'; // Ensure you have the storage import set up
+import { db, auth, storage } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
 import styled from 'styled-components';
@@ -15,6 +14,13 @@ const ProfileContainer = styled.div`
   margin: 15px auto;
   padding: 20px;
   background: transparent;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0px;
+  }
 `;
 
 const ProfileHeader = styled.div`
@@ -26,7 +32,14 @@ const ProfileHeader = styled.div`
   align-items: center;
   justify-content: center;
   width: auto;
-  `
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    flex-direction: column;
+    font-size: 1rem;
+  }
+`;
 
 const ProfileData = styled.div`
   width: 70%;
@@ -35,26 +48,53 @@ const ProfileData = styled.div`
   align-items: left;
   justify-content: space-evenly;
 
-`
+  @media (max-width: 768px) {
+    width: 100%;
+    align-items: center;
+    font-size: 1rem;
+  }
+`;
 
 const DataContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   text-align: left;
-`
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+  }
+`;
 
 const ContentContainer = styled.div`
   width: 50%;
   display: flex;
   flex-direction: row;
-`
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 4px;
+  }
+`;
+
 const ProfileImage = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
   margin: 5px 0 10px 0;
+  @media (max-width: 768px) {
+    height: 150px;
+    width: 150px;
+  }
 `;
 
 const UploadInput = styled.input`
@@ -71,6 +111,11 @@ const UploadButton = styled.label`
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    padding: 5px 10px;
+    margin: 2px;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -85,6 +130,11 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #0b6ea8;
   }
+
+  @media (max-width: 768px) {
+    padding: 5px 10px;
+    margin: 2px;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -96,9 +146,14 @@ const StyledInput = styled.input`
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
-function UserProfile({ user }) {
+
+function UserProfileMobile({ user }) {
   const [userData, setUserData] = useState({});
   const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
@@ -227,7 +282,7 @@ function UserProfile({ user }) {
       <ProfileData>
         <DataContainer>
           <ContentContainer>
-            <h3>Name:{userData.Name}</h3>
+            <h3>Name: {userData.Name}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>University: </h3>
@@ -245,7 +300,7 @@ function UserProfile({ user }) {
         </DataContainer>
         <DataContainer>
           <ContentContainer>
-            <h3>Email:{userData.Email}</h3>
+            <h3>Email: {userData.Email}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>Degree: </h3>
@@ -263,7 +318,7 @@ function UserProfile({ user }) {
         </DataContainer>
         <DataContainer>
           <ContentContainer>
-            <h3>Phone Number:{userData.Number}</h3>
+            <h3>Phone Number: {userData.Number}</h3>
           </ContentContainer>
           <ContentContainer>
             <h3>Occupation: </h3>
@@ -284,7 +339,7 @@ function UserProfile({ user }) {
             <h3>Batch of {userData.Batch}</h3>
           </ContentContainer>
           <ContentContainer>
-          <h3>Company: </h3>
+            <h3>Company: </h3>
             {isEditing ? (
               <StyledInput
                 type="text"
@@ -297,15 +352,12 @@ function UserProfile({ user }) {
             )}
           </ContentContainer>
         </DataContainer>
-          <StyledButton onClick={isEditing ? handleSave : toggleEdit}>
-            {isEditing ? 'Save' : 'Edit'}
-          </StyledButton>
+        <StyledButton onClick={isEditing ? handleSave : toggleEdit}>
+          {isEditing ? 'Save' : 'Edit'}
+        </StyledButton>
       </ProfileData>
     </ProfileContainer>
   );
 }
 
-
-export default UserProfile;
-
-
+export default UserProfileMobile;

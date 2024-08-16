@@ -3,7 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from '../firebase.js';
 import { collection, query, where, getDocs, updateDoc, doc, getDoc, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import UserProfile from './UserProfile.jsx';
+import UserProfileMobile from './UserProfileMobile.jsx';
 import Footer from './Footer.jsx';
 import Navbar from './Navbar.jsx';
 import styled from 'styled-components';
@@ -172,7 +172,7 @@ const Connects = () => {
             <HomePages>
             <Navbar isSignedIn = {isSignedIn}/>
             <HomeContainer>
-              <UserProfile user={UID}/>
+              <UserProfileMobile user={UID}/>
               <AlumniSection>
           {alumniList.map((alumni) => (
             <AlumniCard key={alumni.id}>

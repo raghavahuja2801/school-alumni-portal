@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import UserProfile from './UserProfile';
 import Footer from './Footer';
 import Navbar from './Navbar.jsx';
 import styled from 'styled-components';
 import UserToDo from './UserToDo.jsx';
+import UserProfileMobile from './UserProfileMobile.jsx';
 
 const HomePages = styled.div`
   width: 100%;
@@ -53,23 +53,13 @@ const HomePage = () => {
             } else {
               // User is signed out
               // ...
-              navigate('/')
+              navigate('/login')
               console.log("user is logged out")
             }
           });
          
-    }, [])
+    }, [uid])
 
-    const handleLogout = () => {
-      signOut(auth)
-        .then(() => {
-          navigate("/");
-          console.log("Signed out successfully");
-        })
-        .catch((error) => {
-          console.error('Error signing out:', error);
-        });
-    };
 
     // useEffect(() => {
     //   const fetchData = async () => {
@@ -105,7 +95,7 @@ const HomePage = () => {
             <HomePages>
             <Navbar isSignedIn = {isSignedIn}/>
             <HomeContainer>
-              <UserProfile user={uid}/>
+              <UserProfileMobile user={uid}/>
               <UserToDo />
               </HomeContainer>
               <Footer />
