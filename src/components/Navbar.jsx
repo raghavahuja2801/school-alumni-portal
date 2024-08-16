@@ -69,7 +69,7 @@ const Navbar = ({ isSignedIn }) => {
     <NavbarContainer>
       <Logo src="https://i.imgur.com/PkTeIUz.jpeg" alt="Logo" />
       <NavButtons>
-        <NavButton onClick={handleAdmin}>Home</NavButton>
+        <NavButton onClick={handleHome}>Home</NavButton>
         <NavButton onClick={handleConnects}>Connect</NavButton>
         <NavButton>Circullars</NavButton>
         <NavButton onClick={handleLogout}>{isSignedIn ? 'Logout' : 'Login'}</NavButton>
