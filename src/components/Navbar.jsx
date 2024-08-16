@@ -95,8 +95,10 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
+import { useAuth } from '../context/AuthContext';
 
 const NavbarContainer = styled.nav`
+  z-index: 100;
   background-color: #199d8d;
   display: flex;
   justify-content: space-between;
@@ -160,7 +162,7 @@ const BurgerMenu = styled.div`
     width: 30px;
     height: 3px;
     background-color: white;
-    margin: 4px 5px 4px 0;;
+    margin: 4px 10px 4px 0;;
   }
 
   @media (max-width: 768px) {
@@ -171,20 +173,15 @@ const BurgerMenu = styled.div`
 const Navbar = ({ isSignedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleLogout = () => {
-    if (isSignedIn) {
-      signOut(auth)
-        .then(() => {
-          navigate("/login");
-          console.log("Signed out successfully");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
+    signOut(auth).then(() => {
       navigate("/login");
-    }
+      console.log("Signed out successfully");
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   const handleHome = () => {
@@ -211,7 +208,7 @@ const Navbar = ({ isSignedIn }) => {
         <NavButton onClick={handleHome}>Home</NavButton>
         <NavButton onClick={handleConnects}>Connect</NavButton>
         <NavButton>Circullars</NavButton>
-        <NavButton onClick={handleLogout}>{isSignedIn ? 'Logout' : 'Login'}</NavButton>
+        <NavButton onClick={handleLogout}>{user ? 'Logout' : 'Login'}</NavButton>
       </NavButtons>
     </NavbarContainer>
   );

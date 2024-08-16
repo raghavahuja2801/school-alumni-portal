@@ -5,6 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const ProfileContainer = styled.div`
   width: 80%;
@@ -76,7 +77,7 @@ const ContentContainer = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   h3 {
@@ -153,11 +154,13 @@ const StyledInput = styled.input`
 `;
 
 
-function UserProfileMobile({ user }) {
+function UserProfileMobile({  }) {
   const [userData, setUserData] = useState({});
   const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+
   const [profileData, setProfileData] = useState({
     University: '',
     Degree: '',
@@ -196,7 +199,7 @@ function UserProfileMobile({ user }) {
   const handleSave = async () => {
     try {
       const mergedData = { ...userData, ...profileData };
-      await setDoc(doc(db, 'user_data', user), mergedData);
+      await setDoc(doc(db, 'user_data', user.uid), mergedData);
 
       // Update the userData with the newly saved profileData
       setUserData(mergedData);
@@ -223,10 +226,9 @@ function UserProfileMobile({ user }) {
     const fetchData = async () => {
       try {
         if (user) {
-          const docRef = doc(db, 'user_data', user);
+          const docRef = doc(db, 'user_data', user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
-            console.log('logged in');
             setUserData(docSnap.data());
             if (docSnap.data().status === false) {
               alert("Your account is not approved yet!");
@@ -249,7 +251,7 @@ function UserProfileMobile({ user }) {
 
   async function handleFileChange(e) {
     const file = e.target.files[0];
-    const userId = user;
+    const userId = user.uid;
 
     try {
       const storageRef = ref(storage, `profile_images/${userId}/${file.name}`);
