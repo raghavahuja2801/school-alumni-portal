@@ -92,6 +92,10 @@ const LoginFormContainer = styled.div`
   background: linear-gradient(to bottom, #1A9D8D, #FFD902);
   border-radius: 20px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const Title = styled.h2`
