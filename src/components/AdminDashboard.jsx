@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { collection, query, where, getDocs, updateDoc, doc, getDoc, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useAuth } from '../context/AuthContext';
 import { auth, db, storage } from '../firebase'; // Adjust path to your Firebase setup
 
 
@@ -59,137 +59,130 @@ const StudentItem = styled.li`
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [admin_id, setAdminId] = useState('');
-  const [admin, setAdmin] = useState({});
   const [students, setStudents] = useState([]);
   const [pdfFile, setPdfFile] = useState(null);
+  const { user } = useAuth();
+
 
   useEffect(() => {
-    const fetchAdmin = async (admin_uid) => {
-      try {
-        const docRef = doc(db, 'user_data', admin_uid); // Adjust 'user_data' to your Firestore collection name
-        const docSnap = await getDoc(docRef);
+    const fetchAdmin = async() => {
+  try {
+    const docRef = doc(db, 'user_data', user.uid); // Adjust 'user_data' to your Firestore collection name
+    const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          if (docSnap.data().access === 'admin') {
-            setAdmin(docSnap.data());
-            console.log("ADMIN DATA UPDATED", docSnap.data());
-            fetchStudents(docSnap.data()); // Call fetchStudents after admin data is fetched
-          } else {
-            console.log("You are not admin");
-            navigate('/home');
-          }
-        } else {
-          console.log("Admin does not exist");
-        }
-      } catch (error) {
-        console.error('Error fetching admin:', error);
-      }
-    };
-
-    const authListener = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Admin LOGGED IN");
-        setAdminId(user.uid);
-        setIsSignedIn(true);
-        fetchAdmin(user.uid); // Fetch admin data when user is logged in
+    if (docSnap.exists()) {
+      if (docSnap.data().access === 'admin') {
+        fetchStudents(docSnap.data()); // Call fetchStudents after admin data is fetched
       } else {
-        navigate('/admin');
-        console.log("Admin is logged out");
+        console.log("You are not admin");
+        navigate('/home');
       }
+    } else {
+      console.log("Admin does not exist");
+    }
+  } catch (error) {
+    console.error('Error fetching admin:', error);
+  }
+};
+
+if (user) {
+  console.log("Admin LOGGED IN");
+  setIsSignedIn(true);
+  fetchAdmin(); // Fetch admin data when user is logged in
+} else {
+  navigate('/admin');
+  console.log("Admin is logged out");
+}
+  }, [user]);
+
+const fetchStudents = async (admin_data) => {
+  try {
+    console.log("Fetching students");
+    const studentsRef = collection(db, 'user_data'); // Adjust to your Firestore collection name
+    const q = query(studentsRef, where('Branch', '==', admin_data.Branch), where('status', '==', false)); // Adjust branch filtering criteria
+    const querySnapshot = await getDocs(q);
+
+    const studentList = [];
+    querySnapshot.forEach((doc) => {
+      studentList.push({ id: doc.id, ...doc.data() });
     });
 
-    return () => authListener(); // Clean up auth listener
-  }, []);
+    setStudents(studentList);
+    console.log(studentList);
+  } catch (error) {
+    console.error('Error fetching students:', error);
+  }
+};
 
-  const fetchStudents = async (admin_data) => {
-    try {
-      console.log("Fetching students");
-      const studentsRef = collection(db, 'user_data'); // Adjust to your Firestore collection name
-      const q = query(studentsRef, where('Branch', '==', admin_data.Branch), where('status', '==', false)); // Adjust branch filtering criteria
-      const querySnapshot = await getDocs(q);
+const approveStudent = async (studentId) => {
+  try {
+    const studentDocRef = doc(db, 'user_data', studentId); // Adjust to your Firestore collection and document ID
+    await updateDoc(studentDocRef, {
+      status: true, // Update status to true for approval
+    });
 
-      const studentList = [];
-      querySnapshot.forEach((doc) => {
-        studentList.push({ id: doc.id, ...doc.data() });
-      });
+    // Update local state after approval
+    setStudents((prevStudents) =>
+      prevStudents.filter((student) => student.id !== studentId)
+    );
 
-      setStudents(studentList);
-      console.log(studentList);
-    } catch (error) {
-      console.error('Error fetching students:', error);
-    }
-  };
+    console.log('Student approved successfully!');
+  } catch (error) {
+    console.error('Error approving student:', error);
+  }
+};
 
-  const approveStudent = async (studentId) => {
-    try {
-      const studentDocRef = doc(db, 'user_data', studentId); // Adjust to your Firestore collection and document ID
-      await updateDoc(studentDocRef, {
-        status: true, // Update status to true for approval
-      });
+const handlePdfChange = (e) => {
+  setPdfFile(e.target.files[0]);
+};
 
-      // Update local state after approval
-      setStudents((prevStudents) =>
-        prevStudents.filter((student) => student.id !== studentId)
-      );
+const uploadPdf = async () => {
+  if (!pdfFile) {
+    alert('Please select a PDF file first');
+    return;
+  }
 
-      console.log('Student approved successfully!');
-    } catch (error) {
-      console.error('Error approving student:', error);
-    }
-  };
+  const pdfRef = ref(storage, `pdfs/${admin.Branch}/${pdfFile.name}`);
+  try {
+    await uploadBytes(pdfRef, pdfFile);
+    const downloadURL = await getDownloadURL(pdfRef);
 
-  const handlePdfChange = (e) => {
-    setPdfFile(e.target.files[0]);
-  };
+    await addDoc(collection(db, 'pdfs'), {
+      branch: admin.Branch,
+      url: downloadURL,
+      name: pdfFile.name,
+      uploadedAt: new Date(),
+    });
 
-  const uploadPdf = async () => {
-    if (!pdfFile) {
-      alert('Please select a PDF file first');
-      return;
-    }
+    alert('PDF uploaded successfully');
+    setPdfFile(null); // Clear the file input
+  } catch (error) {
+    console.error('Error uploading PDF:', error);
+    alert('Error uploading PDF');
+  }
+};
 
-    const pdfRef = ref(storage, `pdfs/${admin.Branch}/${pdfFile.name}`);
-    try {
-      await uploadBytes(pdfRef, pdfFile);
-      const downloadURL = await getDownloadURL(pdfRef);
+return (
+  <DashboardContainer>
+    <Navbar isSignedIn={isSignedIn} />
+    <ContentContainer>
+      <h2>Students awaiting approval:</h2>
+      <StudentList>
+        {students.map((student) => (
+          <StudentItem key={student.id}>
+            {student.Name} - {student.Batch}
+            <StyledButton onClick={() => approveStudent(student.id)}>Approve</StyledButton>
+          </StudentItem>
+        ))}
+      </StudentList>
 
-      await addDoc(collection(db, 'pdfs'), {
-        branch: admin.Branch,
-        url: downloadURL,
-        name: pdfFile.name,
-        uploadedAt: new Date(),
-      });
-
-      alert('PDF uploaded successfully');
-      setPdfFile(null); // Clear the file input
-    } catch (error) {
-      console.error('Error uploading PDF:', error);
-      alert('Error uploading PDF');
-    }
-  };
-
-  return (
-    <DashboardContainer>
-      <Navbar isSignedIn={isSignedIn} />
-      <ContentContainer>
-        <h2>Students awaiting approval:</h2>
-        <StudentList>
-          {students.map((student) => (
-            <StudentItem key={student.id}>
-              {student.Name} - {student.Batch}
-              <StyledButton onClick={() => approveStudent(student.id)}>Approve</StyledButton>
-            </StudentItem>
-          ))}
-        </StudentList>
-
-        <h2>Upload PDF</h2>
-        <input type="file" accept="application/pdf" onChange={handlePdfChange} />
-        <button onClick={uploadPdf}>Upload PDF</button>
-      </ContentContainer>
-      <Footer />
-    </DashboardContainer>
-  );
+      <h2>Upload PDF</h2>
+      <input type="file" accept="application/pdf" onChange={handlePdfChange} />
+      <button onClick={uploadPdf}>Upload PDF</button>
+    </ContentContainer>
+    <Footer />
+  </DashboardContainer>
+);
 };
 
 export default AdminDashboard;

@@ -7,6 +7,7 @@ import UserProfileMobile from './UserProfileMobile.jsx';
 import Footer from './Footer.jsx';
 import Navbar from './Navbar.jsx';
 import styled from 'styled-components';
+import { useAuth } from '../context/AuthContext.jsx';
 
 const HomePages = styled.div`
   width: 100%;
@@ -43,6 +44,7 @@ const AlumniSection = styled.div`
   justify-content: space-evenly;
   gap: 20px;
   padding: 20px;
+  margin-bottom: 20px;
 `;
 
 const AlumniCard = styled.div`
@@ -50,8 +52,21 @@ const AlumniCard = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 15px;
-  width: 250px;
+  width: 200px;
+  height: auto;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 60%;
+  }
+
+  h3{
+    margin: 3px auto;
+  }
+
+  p{
+    margin: 4px 0;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -83,6 +98,8 @@ const Connects = () => {
     const [UID, setUID] = useState('')
     const [userData, setUserData] = useState({})
     const [alumniList, setAlumni] = useState([])
+    const { user } = useAuth();
+
 
 
     const fetchData = async (user) => {
@@ -91,7 +108,6 @@ const Connects = () => {
           const docRef = doc(db, 'user_data', user);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
-            console.log('logged in');
             setUserData(docSnap.data());
             if (docSnap.data().status === false) {
               alert("Your account is not approved yet!");
@@ -109,15 +125,11 @@ const Connects = () => {
 
 
     useEffect(()=>{
-        onAuthStateChanged(auth, (user) => {
-          
             if (user) {
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               setIsSignedIn(true)
               fetchData(user.uid)
-              setUID(user.uid)
-              // ...
             } else {
               // User is signed out
               // ...
@@ -125,9 +137,8 @@ const Connects = () => {
               alert("Sign in please")
               console.log("user is logged out")
             }
-          });
          
-    }, [])
+    }, [user])
 
     const fetchStudents = async (userData) => {
       if(userData){
@@ -143,7 +154,6 @@ const Connects = () => {
         });
   
         setAlumni(studentList);
-        console.log("Student List")
         console.log(studentList);
       } catch (error) {
         console.error('Error fetching students:', error);
@@ -172,7 +182,7 @@ const Connects = () => {
             <HomePages>
             <Navbar isSignedIn = {isSignedIn}/>
             <HomeContainer>
-              <UserProfileMobile user={UID}/>
+              <UserProfileMobile/>
               <AlumniSection>
           {alumniList.map((alumni) => (
             <AlumniCard key={alumni.id}>
