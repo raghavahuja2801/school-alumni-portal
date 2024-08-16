@@ -111,6 +111,7 @@ const NavbarContainer = styled.nav`
 
 const Logo = styled.img`
   width: 150px; /* Adjust logo size as needed */
+  padding-left: 15px;
   height: 100%;
 `;
 
