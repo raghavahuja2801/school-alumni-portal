@@ -160,12 +160,12 @@ const BurgerMenu = styled.div`
   display: none;
   flex-direction: column;
   cursor: pointer;
-  color: black;
+  color: #1A9D8D;
 
   div {
     width: 30px;
     height: 3px;
-    background-color: black;
+    background-color: #1A9D8D;
     margin: 4px 10px 4px 0;;
   }
 
