@@ -291,7 +291,6 @@ function UserProfile({ user }) {
   const handleSave = async () => {
     try {
       const mergedData = { ...userData, ...profileData };
-      console.log(mergedData);
       await setDoc(doc(db, 'user_data', user), mergedData);
 
       // Update the userData with the newly saved profileData
@@ -324,7 +323,6 @@ function UserProfile({ user }) {
           if (docSnap.exists()) {
             console.log('logged in');
             setUserData(docSnap.data());
-            console.log(docSnap.data());
             if (docSnap.data().status === false) {
               alert("Your account is not approved yet!");
               handleLogout();

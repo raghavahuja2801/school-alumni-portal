@@ -11,6 +11,7 @@ import Admin from './components/Admin';
 import AdminDashboard from './components/AdminDashboard';
 import Test from './components/Test';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Connects from './components/Connects';
 
 
 const router = createBrowserRouter([
@@ -33,13 +34,17 @@ const router = createBrowserRouter([
   {
     path: "/test",
     element: <Test />
+  },
+  {
+    path: "/connects",
+    element: <Connects />
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
 
 
