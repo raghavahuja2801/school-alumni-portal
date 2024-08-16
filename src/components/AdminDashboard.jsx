@@ -7,7 +7,7 @@ import { collection, query, where, getDocs, updateDoc, doc, getDoc, addDoc } fro
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, storage } from '../firebase'; // Adjust path to your Firebase setup
-import PdfList from './CircularSection';
+
 
 const DashboardContainer = styled.div`
   display: flex;

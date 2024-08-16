@@ -61,12 +61,16 @@ const Navbar = ({ isSignedIn }) => {
     navigate('/admin')
   }
 
+  const handleConnects = () => {
+    navigate('/connects')
+  }
+
   return (
     <NavbarContainer>
       <Logo src="https://i.imgur.com/PkTeIUz.jpeg" alt="Logo" />
       <NavButtons>
         <NavButton onClick={handleAdmin}>Home</NavButton>
-        <NavButton>Connect</NavButton>
+        <NavButton onClick={handleConnects}>Connect</NavButton>
         <NavButton>Circullars</NavButton>
         <NavButton onClick={handleLogout}>{isSignedIn ? 'Logout' : 'Login'}</NavButton>
       </NavButtons>
