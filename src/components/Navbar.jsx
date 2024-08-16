@@ -57,8 +57,8 @@ const Navbar = ({ isSignedIn }) => {
     }
   };
 
-  const handleAdmin = () => {
-    navigate('/admin')
+  const handleHome = () => {
+    navigate('/home')
   }
 
   const handleConnects = () => {
