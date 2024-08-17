@@ -46,8 +46,8 @@ const HomeContainer = styled.div`
     bottom: 0;
     background-image: url("https://i.imgur.com/KQEEOTF.png");
     background-repeat: no-repeat; /* Optional: Prevents image repetition */
-  background-size: cover; /* Optional: Scales image to cover entire div */
-  background-attachment: fixed;
+    background-size: cover; /* Optional: Scales image to cover entire div */
+    background-attachment: fixed;
     opacity: 0.6; /* Change this value to adjust the opacity */
     z-index: -1;
     background-attachment: fixed;

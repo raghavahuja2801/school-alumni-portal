@@ -22,7 +22,7 @@ const ProfileContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     width: 85%;
     padding: 10px 0;
   }
@@ -42,6 +42,8 @@ const ProfileHeader = styled.div`
     width: 100%;
     margin-right: 0;
     flex-direction: column;
+    align-items: left;
+    justify-content: left;
     font-size: 1rem;
   }
 `;
@@ -55,7 +57,8 @@ const ProfileData = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    align-items: center;
+    padding-left: 15px;
+    align-items: left;
     font-size: 1rem;
   }
 `;
@@ -68,19 +71,20 @@ const DataContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     font-size: 1rem;
+    width: 90%;
   }
 `;
 
 const ContentContainer = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: row;
 
   @media (max-width: 768px) {
     width: 100%;
-    justify-content: center;
+    justify-content: left;
     font-size: 1.5rem;
   }
 
@@ -93,6 +97,7 @@ const ContentContainer = styled.div`
 const ProfileImage = styled.img`
   width: 200px;
   height: 200px;
+  background-size: 80%;
   border-radius: 50%;
   object-fit: cover;
   margin: 5px 0 10px 0;
@@ -139,6 +144,28 @@ const StyledButton = styled.button`
   @media (max-width: 768px) {
     padding: 5px 10px;
     margin: 2px;
+  }
+`;
+
+
+const EditButton = styled.button`
+  padding: 10px 20px;
+  background-color: #1A9D8D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #0b6ea8;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: left;
+    width: 20%;
+    padding: 5px 5px;
+    margin: 5px;
   }
 `;
 
@@ -358,9 +385,9 @@ function UserProfileMobile({  }) {
             )}
           </ContentContainer>
         </DataContainer>
-        <StyledButton onClick={isEditing ? handleSave : toggleEdit}>
+        <EditButton onClick={isEditing ? handleSave : toggleEdit}>
           {isEditing ? 'Save' : 'Edit'}
-        </StyledButton>
+        </EditButton>
       </ProfileData>
     </ProfileContainer>
   );

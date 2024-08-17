@@ -78,6 +78,11 @@ const LoginFormContainer = styled.div`
   background: linear-gradient(to bottom, #1A9D8D, #FFD902);
   border-radius: 20px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 80%;
+    margin-bottom: 80px;
+  }
 `;
 
 const Title = styled.h2`
@@ -103,6 +108,10 @@ const StyledInput = styled(Input)`
   background-color: #D9D9D9;
   border: 1px solid #ddd;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+  width: 60%; 
+  }
 `;
 
 const StyledSelect = styled(Select)`
@@ -208,7 +217,7 @@ const AdminLoginPage = () => {
           <StyledInput
             type="email"
             id="email"
-            placeholder="Enter a valid email address"
+            placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
