@@ -124,7 +124,7 @@ const StyledInput = styled(Input)`
   border-radius: 8px;
 
   @media (max-width: 768px) {
-  width: 60%; 
+  width: 70%; 
   }
 `;
 
@@ -175,6 +175,7 @@ const ForgotPasswordLink = styled.a`
   margin-top: 10px;
   color: #7f7f7f;
   text-decoration: none;
+  text-align: right;
 `;
 
 
@@ -238,7 +239,7 @@ const LoginForm = ({ navigate }) => {
           <StyledInput
             type="email"
             id="email"
-            placeholder="Enter a valid email address"
+            placeholder="Enter A Valid Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -291,7 +292,7 @@ const SignupForm = ({ navigate }) => {
           access: 'student',
         });
         alert('Please wait to be approved by the admin'); // Redirect to home after successful signup
-        navigate("/")
+        navigate("/login")
       })
       .catch((error) => {
         console.error('Sign up error:', error);

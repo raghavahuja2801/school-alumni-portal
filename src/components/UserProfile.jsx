@@ -34,6 +34,7 @@ const ProfileData = styled.div`
   flex-direction: column;
   align-items: left;
   justify-content: space-evenly;
+  text-align: left;
 
 `
 
@@ -41,13 +42,41 @@ const DataContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: left;
   text-align: left;
+
+  @media screen {
+    align-items: left;
+    text-align: left;
+    justify-content: left;
+    
+  }
 `
 
 const ContentContainer = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  text-align: left;
+
+  h3{
+    width: 100%;
+    text-align: left;
+  }
+
+  @media screen {
+    align-items: left;
+    text-align: left;
+    justify-content: left;
+
+
+    h3{
+      width: 100%;
+      align-items: left;
+    text-align: left;
+    justify-content: left;
+    }
+  }
 `
 const ProfileImage = styled.img`
   width: 200px;
